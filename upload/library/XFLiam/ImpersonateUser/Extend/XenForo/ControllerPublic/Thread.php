@@ -2,6 +2,18 @@
 
 class XFLiam_ImpersonateUser_Extend_XenForo_ControllerPublic_Thread extends XFCP_XFLiam_ImpersonateUser_Extend_XenForo_ControllerPublic_Thread
 {
+	public function actionReply()
+	{
+		$response = parent::actionReply();
+
+		if ($response instanceof XenForo_ControllerResponse_View)
+		{
+			$response->params['canImpersonateUser'] = $this->_getForumModel()->canImpersonateUser($response->params['forum']);
+		}
+
+		return $response;
+	}
+
 	public function actionAddReply()
 	{
 		$this->_assertPostOnly();

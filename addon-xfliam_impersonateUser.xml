@@ -52,7 +52,20 @@
 		<dt><labe for="ctrl_impersonate_username">{xen:phrase xfliam_impersonateUser_impersonate_user}:</dt>
 		<dd><input id="ctrl_impersonate_username" type="text" name="impersonate_username" class="textCtrl AutoComplete AcSingle" /></dd>
 	</dl>
-</xen:if>]]></replace>
+</xen:if>
+$0]]></replace>
+    </modification>
+    <modification template="thread_reply" modification_key="xfliam_impersonateUser_thread_reply" description="" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<!-- slot: after_attachment -->]]></find>
+      <replace><![CDATA[<xen:if is="{$canImpersonateUser}">
+	<fieldset>
+		<dl class="ctrlUnit">
+			<dt><labe for="ctrl_impersonate_username">{xen:phrase xfliam_impersonateUser_impersonate_user}:</dt>
+			<dd><input id="ctrl_impersonate_username" type="text" name="impersonate_username" class="textCtrl AutoComplete AcSingle" /></dd>
+		</dl>
+	</fieldset>
+</xen:if>
+$0]]></replace>
     </modification>
   </public_template_modifications>
   <bb_code_media_sites/>
