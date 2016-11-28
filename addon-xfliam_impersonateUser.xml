@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="xfliam_impersonateUser" title="Impersonate User" version_string="1.0.0" version_id="1000070" url="https://xf-liam.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="XFLiam_ImpersonateUser_Listener" callback_method="extendClass" active="1" hint="XenForo_ControllerPublic_Forum" description="XenForo_ControllerPublic_Forum"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="XFLiam_ImpersonateUser_Listener" callback_method="extendClass" active="1" hint="XenForo_ControllerPublic_Thread" description="XenForo_ControllerPublic_Thread"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XFLiam_ImpersonateUser_Listener" callback_method="extendClass" active="1" hint="XenForo_DataWriter_Discussion_Thread" description="XenForo_DataWriter_Discussion_Thread"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="XFLiam_ImpersonateUser_Listener" callback_method="extendClass" active="1" hint="XenForo_DataWriter_DiscussionMessage_Post" description="XenForo_DataWriter_DiscussionMessage_Post"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="XFLiam_ImpersonateUser_Listener" callback_method="extendClass" active="1" hint="XenForo_Model_Forum" description="XenForo_Model_Forum"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions>
+      <permission permission_group_id="forum" permission_id="xfliam_impersonateUser" permission_type="flag" default_value="unset" interface_group_id="forumModeratorPermissions" display_order="500000"/>
+      <permission permission_group_id="forum" permission_id="xfliam_noImpersonate" permission_type="flag" default_value="unset" interface_group_id="forumModeratorPermissions" display_order="500001"/>
+    </permissions>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="moderator_log_post_impersonation" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonated user when replying to thread.]]></phrase>
+    <phrase title="moderator_log_thread_impersonation" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonated user when posting thread.]]></phrase>
+    <phrase title="permission_forum_xfliam_impersonateUser" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate user]]></phrase>
+    <phrase title="permission_forum_xfliam_noImpersonate" version_id="1000070" version_string="1.0.0"><![CDATA[Always protect self from impersonation]]></phrase>
+    <phrase title="xfliam_impersonateUser_impersonate_user" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate User]]></phrase>
+    <phrase title="xfliam_impersonateUser_impersonate_username" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate username]]></phrase>
+    <phrase title="xfliam_impersonateUser_x_cannot_be_impersonated_in_this_forum" version_id="1000070" version_string="1.0.0"><![CDATA[{name} cannot be impersonated in this forum.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="quick_reply" modification_key="xfliam_impersonateUser_quick_reply" description="" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<div class="submitUnit">]]></find>
+      <replace><![CDATA[$0
+<xen:if is="{$canImpersonateUser}">
+	<input type="text" name="impersonate_username" class="textCtrl AutoComplete AcSingle" placeholder="{xen:phrase xfliam_impersonateUser_impersonate_username}..." style="float: left; margin-top: 5px;" size="22" />
+</xen:if>]]></replace>
+    </modification>
+    <modification template="thread_create" modification_key="xfliam_impersonateUser_thread_create" description="" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:hook name="thread_create_fields_extra" params="{xen:array 'forum={$forum}'}" />]]></find>
+      <replace><![CDATA[<xen:if is="{$canImpersonateUser}">
+	<dl class="ctrlUnit">
+		<dt><labe for="ctrl_impersonate_username">{xen:phrase xfliam_impersonateUser_impersonate_user}:</dt>
+		<dd><input id="ctrl_impersonate_username" type="text" name="impersonate_username" class="textCtrl AutoComplete AcSingle" /></dd>
+	</dl>
+</xen:if>]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
