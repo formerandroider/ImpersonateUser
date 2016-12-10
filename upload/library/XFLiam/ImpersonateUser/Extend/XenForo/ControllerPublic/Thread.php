@@ -37,12 +37,15 @@ class XFLiam_ImpersonateUser_Extend_XenForo_ControllerPublic_Thread extends XFCP
 
 		if ($impersonateUsername && $this->_getForumModel()->canImpersonateUser($forum, $impersonateUser, $errorPhraseKey))
 		{
-			if (!$impersonateUser)
+			if (!$impersonateUser && XenForo_Application::getOptions()->xfliam_impersonateUser_require_valid)
 			{
 				return $this->responseError(new XenForo_Phrase('requested_user_not_found'), 404);
 			}
 
-			XenForo_Application::set('xfliam_impersonateUser_user', $impersonateUser);
+			XenForo_Application::set('xfliam_impersonateUser_user', array(
+				$impersonateUser ? $impersonateUser['username'] : $impersonateUsername,
+				$impersonateUser ? $impersonateUser['user_id'] : 0
+			));
 		}
 		else if ($impersonateUser && $errorPhraseKey)
 		{

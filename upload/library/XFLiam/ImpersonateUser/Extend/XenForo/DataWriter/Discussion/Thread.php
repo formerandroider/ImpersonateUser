@@ -4,10 +4,11 @@ class XFLiam_ImpersonateUser_Extend_XenForo_DataWriter_Discussion_Thread extends
 {
 	protected function _preSaveDefaults()
 	{
-		if (XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateAs = XenForo_Application::get('xfliam_impersonateUser_user')))
+		if (XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateData = XenForo_Application::get('xfliam_impersonateUser_user')))
 		{
-			$this->set('username', $impersonateAs['username']);
-			$this->set('user_id', $impersonateAs['user_id']);
+			list($username, $userId) = $impersonateData;
+			$this->set('username', $username);
+			$this->set('user_id', $userId);
 
 			$this->getFirstMessageDw()->setOption(XenForo_DataWriter_DiscussionMessage_Post::OPTION_SET_IP_ADDRESS, false);
 		}
@@ -19,7 +20,7 @@ class XFLiam_ImpersonateUser_Extend_XenForo_DataWriter_Discussion_Thread extends
 	{
 		parent::_postSaveAfterTransaction();
 
-		if (XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateAs = XenForo_Application::get('xfliam_impersonateUser_user')))
+		if (XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateData = XenForo_Application::get('xfliam_impersonateUser_user')))
 		{
 			XenForo_Model_Log::logModeratorAction('thread', $this->getMergedData(), 'impersonation');
 		}

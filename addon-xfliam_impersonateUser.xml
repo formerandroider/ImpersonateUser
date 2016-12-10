@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="xfliam_impersonateUser" title="Impersonate User" version_string="1.0.0" version_id="1000070" url="https://xf-liam.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+<addon addon_id="xfliam_impersonateUser" title="Impersonate User" version_string="1.0.1" version_id="1000170" url="https://xf-liam.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -16,7 +16,15 @@
   <cron/>
   <email_templates/>
   <email_template_modifications/>
-  <optiongroups/>
+  <optiongroups>
+    <group group_id="xfliam_impersonateUser" display_order="50000" debug_only="0"/>
+    <option option_id="xfliam_impersonateUser_require_valid" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="xfliam_impersonateUser" display_order="1"/>
+    </option>
+  </optiongroups>
   <permissions>
     <permission_groups/>
     <permissions>
@@ -28,6 +36,10 @@
   <phrases>
     <phrase title="moderator_log_post_impersonation" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonated user when replying to thread.]]></phrase>
     <phrase title="moderator_log_thread_impersonation" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonated user when posting thread.]]></phrase>
+    <phrase title="option_group_xfliam_impersonateUser" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate User]]></phrase>
+    <phrase title="option_group_xfliam_impersonateUser_description" version_id="1000070" version_string="1.0.0"><![CDATA[]]></phrase>
+    <phrase title="option_xfliam_impersonateUser_require_valid" version_id="1000070" version_string="1.0.0"><![CDATA[Require valid user]]></phrase>
+    <phrase title="option_xfliam_impersonateUser_require_valid_explain" version_id="1000070" version_string="1.0.0"><![CDATA[If checked, the username entered for impersonation must be an existing user. If not checked, and the entered user does not exist, it will be set as a guest username.]]></phrase>
     <phrase title="permission_forum_xfliam_impersonateUser" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate user]]></phrase>
     <phrase title="permission_forum_xfliam_noImpersonate" version_id="1000070" version_string="1.0.0"><![CDATA[Always protect self from impersonation]]></phrase>
     <phrase title="xfliam_impersonateUser_impersonate_user" version_id="1000070" version_string="1.0.0"><![CDATA[Impersonate User]]></phrase>

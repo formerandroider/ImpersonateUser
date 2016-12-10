@@ -4,10 +4,11 @@ class XFLiam_ImpersonateUser_Extend_XenForo_DataWriter_DiscussionMessage_Post ex
 {
 	protected function _preSaveDefaults()
 	{
-		if (!$this->isDiscussionFirstMessage() && XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateAs = XenForo_Application::get('xfliam_impersonateUser_user')))
+		if (!$this->isDiscussionFirstMessage() && XenForo_Application::isRegistered('xfliam_impersonateUser_user') && is_array($impersonateData = XenForo_Application::get('xfliam_impersonateUser_user')))
 		{
-			$this->set('username', $impersonateAs['username']);
-			$this->set('user_id', $impersonateAs['user_id']);
+			list($username, $userId) = $impersonateData;
+			$this->set('username', $username);
+			$this->set('user_id', $userId);
 
 			$this->setOption(self::OPTION_SET_IP_ADDRESS, false);
 
